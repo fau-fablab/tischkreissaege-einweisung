@@ -1,4 +1,4 @@
-Lasercuter Einweisung
+Tischkreissäge Einweisung
 =====================
 
 Einweisung des [FAU FabLab](https://fablab.fau.de) für die Tischkreissäge [Proxxon FET](https://www.proxxon.com/de/micromot/27070.php).
