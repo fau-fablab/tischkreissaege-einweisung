@@ -4,6 +4,9 @@ output/
 revision.tex
 *~
 
+# was auch immer das ist:
+*.stc*
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
