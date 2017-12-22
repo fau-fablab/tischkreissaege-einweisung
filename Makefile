@@ -1,0 +1,2 @@
+TARGET=Einweisung_Tischkreissaege Einweisungsliste_Tischkreissaege
+include fablab-document/Makefile.include
