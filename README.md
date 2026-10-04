@@ -1,7 +1,10 @@
-Tischkreissäge Einweisung
-=========================
+Einweisung Proxxon Tischkreissäge FET
+=====================================
 
 Einweisung des [FAU FabLab](https://fablab.fau.de) für die Feinschnitt-Tischkreissäge [Proxxon FET](https://www.proxxon.com/de/micromot/27070.php).
+
+Dies ist ein inoffizielles Dokument des FAU FabLab und steht in keiner Verbindung zur PROXXON GmbH.
+„Proxxon“ ist eine Marke der PROXXON GmbH und wird hier nur zur Bezeichnung des Produkts verwendet.
 
 Inhalt
 ------
@@ -47,4 +50,7 @@ Lizenz
 
 [![Lizenz: CC BY-SA 3.0](https://licensebuttons.net/l/by-sa/3.0/de/88x31.png)</br>CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)
 
-Ausnahme: Abbildungen, Tabellen und Textabschnitte aus der Proxxon-Betriebsanleitung; deren Rechte liegen bei Proxxon.
+Ausnahme: Abbildungen (Produktfoto, Sägeblatt-Bilder, Skizzen in `bilder/`), Tabellen und Textabschnitte, die
+aus Material von Proxxon (Betriebsanleitung, Produktfotos) stammen; deren Rechte liegen bei Proxxon und sie stehen
+**nicht** unter der CC-Lizenz. Sie werden nur mit entsprechender Erlaubnis verwendet bzw. sollen durch eigene oder
+frei lizenzierte Abbildungen ersetzt werden.
