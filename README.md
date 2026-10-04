@@ -50,7 +50,7 @@ Lizenz
 
 [![Lizenz: CC BY-SA 3.0](https://licensebuttons.net/l/by-sa/3.0/de/88x31.png)</br>CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)
 
-Ausnahme: Abbildungen (Produktfoto, Sägeblatt-Bilder, Skizzen in `bilder/`), Tabellen und Textabschnitte, die
-aus Material von Proxxon (Betriebsanleitung, Produktfotos) stammen; deren Rechte liegen bei Proxxon und sie stehen
-**nicht** unter der CC-Lizenz. Sie werden nur mit entsprechender Erlaubnis verwendet bzw. sollen durch eigene oder
-frei lizenzierte Abbildungen ersetzt werden.
+Hinweis: Alle Abbildungen in `bilder/` (Skizzen und Sägeblatt-Symbole) sind selbst gezeichnet (TikZ-Quellen in
+`bilder/src/`) und stehen unter derselben Lizenz. Die Schutzausrüstungs-Symbole (`g*.png`) sind Gebotszeichen.
+„Proxxon“ ist eine Marke der PROXXON GmbH; Textabschnitte, die der Betriebsanleitung folgen, bleiben deren Urheberrecht
+zuzurechnen.
