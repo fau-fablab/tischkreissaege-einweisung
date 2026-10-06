@@ -1,38 +1,37 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% COPYRIGHT: (C) 2012-2015 FAU FabLab and others
-% Bearbeitungen ab 2015-02-20 fallen unter CC-BY-SA 3.0
-% Sobald alle Mitautoren zugestimmt haben, steht die komplette Datei unter CC-BY-SA 3.0. Bis dahin ist der Lizenzstatus aller alten Bestandteile ungeklärt.
+% COPYRIGHT: (C) 2012-2026 FAU FabLab and others
+% CC-BY-SA 3.0
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \newcommand{\basedir}{fablab-document}
-\documentclass[13pt]{\basedir/fablab-document}
-\usepackage{fancybox} %ovale Boxen für Knöpfe
-\usepackage{amssymb} % Symbole für Knöpfe
-\usepackage{subfigure,caption}
-\usepackage{eurosym}
+\documentclass{\basedir/fablab-document}
 \usepackage{tabularx} % Tabellen mit bestimmtem Breitenverhältnis der Spalten
-\usepackage{wrapfig} % Textumlauf um Bilder
-\renewcommand{\texteuro}{\euro}
 \usepackage{ifthen}
 \usepackage{xspace}
 \def\tabularnewcol{&\xspace} % hässlicher Workaround von http://tex.stackexchange.com/questions/7590/how-to-programmatically-make-tabular-rows-using-whiledo
 
-
-\usepackage{tabularx} % Tabelle mit teilweise gleich großen Spalten
-\title{Einweisungsliste Tischkreissäge Proxxon}
-\fancyfoot[C]{Einweisungsliste Tischkreissäge.tex}
+\title{Einweisungsliste Tischkreissäge}
+\fancyfoot[C]{\small github.com/fau-fablab/tischkreissaege-einweisung}
 \fancyfoot[L]{Einweisungsliste Nr. \underline{\hspace{3em}}}
+% Versionsnummer: version.tex wird von der GitHub Action erzeugt,
+% lokal steht stattdessen "Entwurf" mit Datum in der Fußzeile.
+\InputIfFileExists{version}{}{\newcommand{\Version}{Entwurf \today}}
+\fancyfoot[R]{Version \Version}
 
 \begin{document}
-%\maketitle
+\vspace*{-2em}
+
+\textbf{für die Feinschnitt-Tischkreissäge Proxxon FET}
 
 Ich bestätige mit meiner Unterschrift verbindlich, dass
 
 \begin{itemize}
-\item ich die Regeln im Umgang mit der Tischkreissäge gelesen und verstanden habe
+\item ich die Regeln und Hinweise zur Tischkreissäge gelesen und verstanden habe
+\item ich unter Anleitung einen Längsschnitt und einen Querschnitt erfolgreich gesägt habe
+\item ich bei weitergehenden Fragen die Betriebsanleitung der Maschine lese oder einen Betreuer frage
 \item die Möglichkeit für Fragen und Diskussion gegeben war
-\item die Möglichkeit, eine Kopie der Regeln zu erhalten, gegeben war
+\item die Möglichkeit, eine Kopie der Anleitung zu erhalten, gegeben war
 \end{itemize}
 
 
@@ -46,7 +45,7 @@ Ich bestätige mit meiner Unterschrift verbindlich, dass
 \begin{tabularx}{\textwidth}{|l|l|l|l|X|X|X|X|}
   \hline
   \textbf{Nr.} & \textbf{Datum} & \textbf{von} & \textbf{bis} & \textbf{Name} & \textbf{Unterschrift} & \textbf{Einweisender} & \textbf{Unterschrift} \\ \hline
-  \whiledo{\value{i}<14}%
+  \whiledo{\value{i}<13}%
   {%
     \stepcounter{i} \leerezeile
   }%

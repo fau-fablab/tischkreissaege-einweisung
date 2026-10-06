@@ -1,0 +1,43 @@
+% =====================================================================
+%  Geneigtes Sägeblatt (Vorderansicht, Blick der Bedienperson): Das Blatt
+%  neigt sich nach rechts. Den Längsanschlag dann links vom Blatt setzen,
+%  damit kein Reststück unter dem Blatt eingeklemmt wird.
+%  Selbst gezeichnet (TikZ), Lizenz: CC BY-SA 3.0
+% =====================================================================
+\begin{tikzpicture}[x=1mm, y=1mm, font=\scriptsize]
+
+  % Tisch mit um 30° geneigtem Blatt, Drehpunkt auf der Tischoberfläche
+  \newcommand{\neigetisch}{%
+    \fill[gehaeusegruen!70] (6,4) rectangle (76,12);
+    \draw[tisch] (6,12) rectangle (76,14);
+    \draw[hilfslinie, dashed] (41,14) -- (41,36);}
+  \newcommand{\neigeblatt}{%
+    \draw[blatt, rotate around={-30:(41,14)}] (40.4,14) rectangle (41.6,34);}
+
+  % ---------------- 1 richtig --------------------------------------
+  \feld{0}{0}{82}{52}{1\quad Anschlag links vom Blatt}
+  \neigetisch
+  \draw[werkstueck] (18,14) -- (41,14) -- (45.6,22) -- (18,22) -- cycle;
+  \draw[werkstueck] (41.9,14) -- (60,14) -- (60,22) -- (46.5,22) -- cycle;
+  \neigeblatt
+  \draw[metall] (12,14) rectangle (18,26);
+  \draw[drehung] (41,30) arc[start angle=90, end angle=60, radius=16];
+  \node at (50,37) {0--45°};
+  \node[anchor=west, align=left] at (60,30) {Blatt neigt\\sich vom\\Anschlag weg};
+  \node[anchor=south] at (15,26) {Anschlag};
+  \pic at (74,45) {ok};
+
+  % ---------------- 2 falsch ---------------------------------------
+  \begin{scope}[shift={(88,0)}]
+    \feld{0}{0}{82}{52}{2\quad Anschlag rechts vom Blatt}
+    \neigetisch
+    \draw[werkstueck] (14,14) -- (41,14) -- (45.6,22) -- (14,22) -- cycle;
+    % Reststück unter dem geneigten Blatt eingeklemmt
+    \draw[werkstueck] (41,14) -- (51,14) -- (51,22) -- (45.6,22) -- cycle;
+    \draw[metall] (51,14) rectangle (57,26);
+    \neigeblatt
+    \draw[kraft, nokrot] (48,24) -- (48,34);
+    \node[nokrot, anchor=west, align=left] at (58,32) {Reststück\\klemmt unter\\dem Blatt};
+    \pic at (74,45) {nok};
+  \end{scope}
+\end{tikzpicture}
