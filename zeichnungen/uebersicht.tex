@@ -1,0 +1,95 @@
+% =====================================================================
+%  Schematische Übersicht der Feinschnitt-Tischkreissäge Proxxon FET:
+%  oben Draufsicht, unten Vorderansicht. Selbst gezeichnet (TikZ),
+%  nicht maßstäblich; die Nummern zeigen, welche Teile es gibt, nicht
+%  ihre exakte Lage an der Maschine. Nummern wie in der Tabelle der
+%  Einweisung (\teil{n}). Lizenz: CC BY-SA 3.0
+% =====================================================================
+\begin{tikzpicture}[x=1mm, y=1mm, font=\sffamily\scriptsize]
+  % ---------------------------------------------------------- Draufsicht
+  \node[anchor=west, font=\small\bfseries] at (-40,100) {Draufsicht};
+  % ausziehbarer Tisch links mit Hilfsanschlag
+  \draw[metall] (-30,24) rectangle (6,26.5);
+  \draw[metall] (-30,70) rectangle (6,72.5);
+  \draw[gehaeuse] (-36,14) rectangle (-28,84);
+  \draw[gelb] (-31,16) rectangle (-27,82);
+  % Gehäuse und Sägetisch
+  \draw[gehaeuse] (6,4) rectangle (92,90);
+  \draw[tisch] (10,10) rectangle (88,86);
+  % Führungsnuten für den Winkelanschlag
+  \draw[black!60, line width=1.2pt] (20,10) -- (20,86) (66,10) -- (66,86);
+  % Tischeinlage, Sägeblatt, Spaltkeil, Sägeblattschutz
+  \draw[fill=black!70, draw=black] (41,26) rectangle (45,70);
+  \fill[black!40] (42.4,32) rectangle (43.6,58);
+  \draw[keil] (42.5,58) rectangle (43.5,68);
+  \draw[draw=schutzorange!80!black, fill=schutzorange, fill opacity=0.55, line width=0.7pt]
+    (40.5,30) rectangle (45.5,68);
+  % Winkelanschlag in der linken Nut
+  \begin{scope}[shift={(20,46)}]
+    \draw[gelb] (-8,0) arc[start angle=180, end angle=0, radius=8] -- cycle;
+    \draw[gelb] (-9,0) rectangle (15,2.5);
+    \fill[black!70] (0,4) circle (1.6);
+  \end{scope}
+  % Längsanschlag rechts mit Klemmung und Feineinstellung
+  \draw[metall] (72,4) rectangle (77,90);
+  \draw[gelb] (73,-1) rectangle (76,4);
+  \fill[black!80] (80,1) circle (2.2);
+  \draw[black!80, line width=1pt] (80,1) -- (85,-2);
+  % Skala vorn
+  \fill[white] (10,4.5) rectangle (88,8.5);
+  \foreach \x in {12,14,...,86} \draw[black!70, line width=0.3pt] (\x,8.5) -- (\x,7.2);
+  \foreach \x in {12,22,...,82} \draw[black!70, line width=0.4pt] (\x,8.5) -- (\x,6.2);
+  % Absauganschluss hinten
+  \draw[metall] (43,94) circle (3.2);
+  \fill[black!60] (43,94) circle (1.8);
+  % Vorschub
+  \draw[vorschub, blue!60!black] (52,14) -- (52,30);
+  \node[anchor=west, blue!60!black] at (53,18) {Vorschub};
+  % Nummern
+  \nr{1}{30,62}{43,52}
+  \nr{2}{56,77}{44.5,66}
+  \nr{3}{82,80}{80,70}
+  \nr{4}{100,60}{77,60}
+  \nr{5}{8,52}{14,47}
+  \nr{6}{60,40}{66,36}
+  \nr{7}{-42,60}{-31,60}
+  \nr{8}{30,0}{30,6.5}
+  \nr{12}{56,98}{46,95}
+
+  % ------------------------------------------------------ Vorderansicht
+  \begin{scope}[shift={(0,-58)}]
+    \node[anchor=west, font=\small\bfseries] at (-40,40) {Vorderansicht};
+    % Tisch, Skala, Blatt und Anschlag über dem Tisch
+    \draw[tisch] (6,30) rectangle (92,33);
+    \draw[metall] (72,33) rectangle (77,39);
+    \fill[black!60] (42.4,33) rectangle (43.6,37);
+    \draw[draw=schutzorange!80!black, fill=schutzorange, fill opacity=0.55, line width=0.7pt]
+      (40.5,33) rectangle (45.5,40);
+    \draw[gelb] (-36,28) rectangle (-28,36);
+    \draw[metall] (-28,31) rectangle (6,32.5);
+    % Gehäuse
+    \draw[gehaeuse] (6,0) rectangle (92,30);
+    \fill[white] (10,25) rectangle (88,29);
+    \foreach \x in {12,14,...,86} \draw[black!70, line width=0.3pt] (\x,29) -- (\x,27.7);
+    % Schalter
+    \draw[fill=black!80] (11,7) rectangle (21,21);
+    \draw[fill=okgruen!70] (12.5,15) rectangle (19.5,19.5);
+    \draw[fill=nokrot!80] (12.5,8.5) rectangle (19.5,13);
+    % Fenster mit Winkelskala und Verstellung
+    \draw[fill=gehaeusegruen!40, draw=black!80] (30,3) rectangle (68,23);
+    \draw[gelb] ($(49,9)+(20:13)$) arc[start angle=20, end angle=160, radius=13]
+      -- ($(49,9)+(160:10)$) arc[start angle=160, end angle=20, radius=10] -- cycle;
+    \foreach \w in {25,35,...,155} \draw[black!70] ($(49,9)+(\w:13)$) -- ($(49,9)+(\w:11.6)$);
+    \fill[black!85] (49,9) circle (4.2);
+    \foreach \w in {0,60,...,300} \fill[black!85] ($(49,9)+(\w:4.2)$) circle (1.3);
+    \fill[black!25] (49,9) circle (2);
+    \draw[nokrot, line width=0.8pt] (49,9) -- ++(80:12.5);
+    % Längsanschlag: Feineinstellung
+    \fill[black!80] (80,32) circle (2);
+    % Nummern
+    \nr{9}{2,-6}{16,7}
+    \nr{10}{40,-6}{48,7}
+    \nr{11}{70,-6}{60.5,15}
+  \end{scope}
+  \node[font=\scriptsize] at (49,-70) {Bedienperson};
+\end{tikzpicture}

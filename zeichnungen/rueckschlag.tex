@@ -1,0 +1,80 @@
+% =====================================================================
+%  Rückschlag: wie er entsteht, wozu der Spaltkeil da ist und wo man
+%  steht. Feld 1 Seitenansicht (Bedienperson rechts, Vorschub nach
+%  links), Felder 2-4 Draufsicht (Bedienperson unten, Vorschub nach oben).
+%  Selbst gezeichnet (TikZ), Lizenz: CC BY-SA 3.0
+% =====================================================================
+\begin{tikzpicture}[x=1mm, y=1mm, font=\scriptsize]
+
+  % ---------------- 1 Entstehung (Seitenansicht) -------------------
+  \feld{0}{57}{82}{52}{1\quad So entsteht ein Rückschlag}
+  \begin{scope}[shift={(0,57)}]
+    \begin{scope}
+      \clip (0,14) rectangle (82,46);
+      \saegeblatt{40}{8}{17}{24}
+    \end{scope}
+    \fill[gehaeusegruen!70] (4,4) rectangle (78,12);
+    \draw[tisch] (4,12) rectangle (78,14);
+    % Werkstück wird hinten von den aufsteigenden Zähnen angehoben
+    \draw[werkstueck, fill opacity=0.65, rotate around={-13:(64,14)}] (16,14) rectangle (64,21);
+    % Drehrichtung des Blatts
+    \draw[drehung, nokrot] ($(40,8)+(160:22)$) arc[start angle=160, end angle=120, radius=22];
+    \node[nokrot, align=center] at (13,40) {Zähne hinten\\steigen auf};
+    % Werkstück fliegt zur Bedienperson
+    \draw[kraft, nokrot, line width=1.6pt] (60,30) -- (78,30);
+    \node[nokrot, align=center] at (66,38) {Werkstück fliegt\\zur Bedienperson};
+    \node[white] at (41,7.5) {Werkstück klemmt oder verdreht sich};
+  \end{scope}
+
+  % Draufsicht auf Blatt und Schnitt: \draufblatt{x}{y}
+  \newcommand{\draufblatt}[2]{%
+    \fill[black!60] (#1-0.6,#2-12) rectangle (#1+0.6,#2+12);
+    \foreach \t in {-11,-9,...,11} \fill[black!80] (#1-0.9,#2+\t) rectangle (#1+0.9,#2+\t+0.8);}
+
+  % ---------------- 2 ohne Spaltkeil -------------------------------
+  \feld{88}{57}{82}{52}{2\quad Ohne Spaltkeil}
+  \begin{scope}[shift={(88,57)}]
+    % Schnittfuge schließt sich hinter dem Blatt und klemmt es ein
+    \draw[werkstueck] (8,4) -- (74,4) -- (74,44) -- (41.1,44) -- (41.1,36) -- (41.8,24)
+      -- (41.8,12) -- (40.2,12) -- (40.2,24) -- (40.9,36) -- (40.9,44) -- (8,44) -- cycle;
+    \draw[vorschub] (60,8) -- (60,20);
+    \draw[kraft, nokrot] (30,34) -- (39,34);
+    \draw[kraft, nokrot] (52,34) -- (43,34);
+    \node[nokrot, align=center, fill=white, fill opacity=0.8, text opacity=1, inner sep=1pt] at (23,24)
+      {Schnitt schließt sich\\und klemmt das Blatt};
+    \fill[black!60] (40.4,12) rectangle (41.6,26);
+    \pic at (74,47) {nok};
+  \end{scope}
+
+  % ---------------- 3 mit Spaltkeil -------------------------------
+  \feld{0}{0}{82}{52}{3\quad Mit Spaltkeil}
+  \begin{scope}[shift={(0,0)}]
+    \draw[werkstueck] (8,4) -- (74,4) -- (74,44) -- (41.8,44) -- (41.8,12) -- (40.2,12)
+      -- (40.2,44) -- (8,44) -- cycle;
+    \draw[vorschub] (60,8) -- (60,20);
+    \fill[black!60] (40.4,12) rectangle (41.6,26);
+    \draw[keil] (40.3,29) rectangle (41.7,40);
+    \draw[hilfslinie] (41.7,35) -- (52,40);
+    \node[anchor=west, align=left, fill=white, fill opacity=0.8, text opacity=1, inner sep=1pt] at (52,40)
+      {Spaltkeil hält\\den Schnitt offen};
+    \draw[hilfslinie] (40.4,19) -- (30,24);
+    \node[anchor=east, fill=white, fill opacity=0.8, text opacity=1, inner sep=1pt] at (30,24) {Sägeblatt};
+    \pic at (74,47) {ok};
+  \end{scope}
+
+  % ---------------- 4 Standposition -------------------------------
+  \feld{88}{0}{82}{52}{4\quad Seitlich vom Blatt stehen}
+  \begin{scope}[shift={(88,0)}]
+    \draw[tisch] (14,14) rectangle (70,44);
+    \fill[black!60] (40.4,26) rectangle (41.6,38);
+    \draw[metall] (54,14) rectangle (57,44);
+    % Rückschlagzone in der Verlängerung des Blatts
+    \fill[gefahrenzone] (35,1) rectangle (47,26);
+    % Bedienperson links neben der Zone
+    \fill[black!45] (24,4) ellipse (8 and 3);
+    \fill[black!65] (24,4.8) circle (2.6);
+    \node[anchor=west, nokrot, align=left] at (50,6) {Rückschlagzone:\\hier nicht stehen};
+    \draw[hilfslinie] (49.5,6) -- (47,8);
+    \pic at (74,47) {ok};
+  \end{scope}
+\end{tikzpicture}
