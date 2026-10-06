@@ -1,0 +1,96 @@
+% =====================================================================
+%  Werkstück führen: Längsschnitt mit Längsanschlag und Schiebestock,
+%  Querschnitt mit Winkelanschlag und zwei typische Fehler.
+%  Draufsicht, Bedienperson unten, Vorschub nach oben.
+%  Selbst gezeichnet (TikZ), Lizenz: CC BY-SA 3.0
+% =====================================================================
+\begin{tikzpicture}[x=1mm, y=1mm, font=\scriptsize]
+
+  % Hand von oben: \hand{x}{y}{Drehwinkel}
+  \newcommand{\hand}[3]{%
+    \begin{scope}[shift={(#1,#2)}, rotate=#3, scale=0.75]
+      \foreach \fx/\fl in {-3.4/4.2, -1.3/5.2, 0.8/5, 2.8/4}
+        \draw[hand, rounded corners=0.8mm] (\fx-0.9,1) rectangle (\fx+0.9,1+\fl+2);
+      \draw[hand, rounded corners=0.8mm, rotate around={40:(-4,-1)}] (-5,-1) rectangle (-3.2,5);
+      \draw[hand] (-4.4,-5) rectangle (3.8,2.6);
+    \end{scope}}
+  % Tisch mit Sägeblatt (Draufsicht): \tischblatt
+  \newcommand{\tischblatt}{%
+    \draw[tisch] (8,4) rectangle (74,44);
+    \draw[black!60, line width=1pt] (20,4) -- (20,44);
+    \fill[black!70] (39.5,16) rectangle (42.5,40);
+    \fill[black!40] (40.4,20) rectangle (41.6,30);
+    \draw[keil] (40.5,31) rectangle (41.5,37);}
+  % Gefahrenzone vor und hinter dem Blatt
+  \newcommand{\zone}{\fill[gefahrenzone] (37,4) rectangle (45,44);}
+
+  % ---------------- 1 Längsschnitt ---------------------------------
+  \feld{0}{57}{82}{52}{1\quad Längsschnitt}
+  \begin{scope}[shift={(0,57)}]
+    \tischblatt
+    \zone
+    \draw[metall] (54,4) rectangle (57,44);
+    % Werkstück zwischen Blatt und Anschlag, schon zur Hälfte gesägt
+    \draw[werkstueck] (26,22) -- (54,22) -- (54,44) -- (41.6,44) -- (41.6,30)
+      -- (40.4,30) -- (40.4,44) -- (26,44) -- cycle;
+    % Schiebestock schiebt den Streifen
+    \draw[fill=holzrand!70, draw=holzrand!60!black, line width=0.5pt]
+      (43,22) -- (49,22) -- (49,19) -- (60,7) -- (57,4.5) -- (45.5,17.5) -- (43,19.5) -- cycle;
+    \hand{60}{5}{-40}
+    \draw[vorschub] (66,20) -- (66,32);
+    \node[anchor=west, align=left] at (58,40) {Längs-\\anschlag};
+    \node[anchor=east, align=right] at (36,12) {Schiebestock\\für die letzten cm};
+    \draw[hilfslinie] (36.5,12) -- (50,13);
+    \pic at (74,47) {ok};
+  \end{scope}
+
+  % ---------------- 2 Hand vor dem Blatt ---------------------------
+  \feld{88}{57}{82}{52}{2\quad Freihändig, Hand vor dem Blatt}
+  \begin{scope}[shift={(88,57)}]
+    \tischblatt
+    \zone
+    \draw[werkstueck, rotate around={8:(41,26)}] (26,18) rectangle (56,34);
+    \hand{42}{12}{0}
+    \node[nokrot, anchor=west, align=left, fill=white, fill opacity=0.85, text opacity=1, inner sep=1pt]
+      at (50,10) {Hand in der\\Blattverlängerung};
+    \pic at (74,47) {nok};
+  \end{scope}
+
+  % ---------------- 3 Querschnitt mit Winkelanschlag -----------------
+  \feld{0}{0}{82}{52}{3\quad Querschnitt mit Winkelanschlag}
+  \begin{scope}[shift={(0,0)}]
+    \tischblatt
+    % Längsanschlag weit weg
+    \draw[metall, opacity=0.35, dashed] (66,4) rectangle (69,44);
+    % Winkelanschlag in der linken Nut, Werkstück davor
+    \begin{scope}[shift={(20,14)}]
+      \draw[gelb] (-7,0) arc[start angle=180, end angle=0, radius=7] -- cycle;
+      \draw[gelb] (-8,0) rectangle (16,-2.5);
+      \fill[black!70] (0,3.5) circle (1.4);
+    \end{scope}
+    \draw[werkstueck] (13,14.2) rectangle (54,22);
+    \hand{16}{6}{0}
+    \draw[vorschub] (60,8) -- (60,20);
+    \node[anchor=west, align=left] at (52,31) {Längsanschlag\\weit weg oder\\abgenommen};
+    \pic at (74,47) {ok};
+  \end{scope}
+
+  % ---------------- 4 beide Anschläge -----------------------------
+  \feld{88}{0}{82}{52}{4\quad Beide Anschläge zugleich}
+  \begin{scope}[shift={(88,0)}]
+    \tischblatt
+    \draw[metall] (52,4) rectangle (55,44);
+    \begin{scope}[shift={(20,14)}]
+      \draw[gelb] (-7,0) arc[start angle=180, end angle=0, radius=7] -- cycle;
+      \draw[gelb] (-8,0) rectangle (16,-2.5);
+      \fill[black!70] (0,3.5) circle (1.4);
+    \end{scope}
+    \draw[werkstueck] (13,14.2) rectangle (40.4,22);
+    % Reststück verkeilt sich zwischen Blatt und Anschlag
+    \draw[werkstueck, rotate around={-25:(47,24)}] (41.6,20) rectangle (52,28);
+    \draw[kraft, nokrot] (47,30) -- (47,40) node[above, align=center] {};
+    \node[nokrot, anchor=west, align=left, fill=white, fill opacity=0.85, text opacity=1, inner sep=1pt]
+      at (57,24) {Reststück\\klemmt\\und fliegt};
+    \pic at (74,47) {nok};
+  \end{scope}
+\end{tikzpicture}

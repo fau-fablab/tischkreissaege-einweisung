@@ -3,13 +3,18 @@ Tischkreissäge Einweisung
 
 Einweisung des [FAU FabLab](https://fablab.fau.de) für die Feinschnitt-Tischkreissäge [Proxxon FET](https://www.proxxon.com/de/micromot/27070.php).
 
+Dies ist ein inoffizielles Dokument des FAU FabLab und steht in keiner Verbindung zu Proxxon.
+„Proxxon“ ist eine Marke ihres Inhabers und wird hier nur zur Bezeichnung des Produkts verwendet.
+
 Inhalt
 ------
 
-- Technische Daten, allgemeine Sicherheitshinweise, Schutzausrüstung
-- Bestimmungsgemäße Verwendung, Inbetriebnahme, Sägeblattschutz
-- Einstellungen: Höhe und Neigung des Sägeblatts, Sägetisch ausziehen, Sägeblatt wählen und wechseln
-- Arbeiten mit Längs-, Hilfs- und Winkelanschlag
+- Regeln und Sicherheit, Betriebsanweisung (Aushang an der Säge, standardmäßig aus)
+- Technische Daten, die wichtigsten Teile (eigene Skizze), bestimmungsgemäße Verwendung
+- Vorbereitung: Checkliste, Schutzausrüstung, Aufstellen und Absaugung, Material, Sägeblatt wählen
+- Einstellungen: Schnitthöhe, Neigung, Längsanschlag, ausziehbarer Tisch mit Hilfsanschlag, Winkelanschlag
+- Sägen: Längs- und Querschnitt, Rückschlag, kleine Teile und Leiterplatten, Verbote
+- Nach dem Sägen, Infos für Betreuer: Sägeblattwechsel, typische Fehler, Pflege
 
 Download
 --------
@@ -18,6 +23,11 @@ Die neueste Version aus [GitHub](https://github.com/fau-fablab/tischkreissaege-e
 
 - [Einweisung](https://brain.fablab.fau.de/build/tischkreissaege-einweisung/Einweisung_Tischkreissaege.pdf)
 - [Einweisungsliste](https://brain.fablab.fau.de/build/tischkreissaege-einweisung/Einweisungsliste_Tischkreissaege.pdf)
+
+Die Betriebsanweisung (`betriebsanweisung/ba_tischkreissaege.tex`, BA-TK-01) ist noch ein Entwurf und wird
+standardmäßig nicht gebaut. Zum Einschalten im `Makefile` die Zeile `TARGET += Betriebsanweisung_Tischkreissaege`
+einkommentieren, dann erscheint sie als eigenes PDF und als Seite in der Einweisung
+(siehe [README_betriebsanweisung.md](https://github.com/fau-fablab/fablab-document/blob/master/README_betriebsanweisung.md)).
 
 Außerdem baut eine GitHub Action die PDFs bei jedem Push. Auf dem Hauptbranch entsteht dabei ein
 [Release](https://github.com/fau-fablab/tischkreissaege-einweisung/releases) mit Datums-Version (`vJJJJ.MM.TT`) und den PDFs.
@@ -47,4 +57,9 @@ Lizenz
 
 [![Lizenz: CC BY-SA 3.0](https://licensebuttons.net/l/by-sa/3.0/de/88x31.png)</br>CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)
 
-Ausnahme: Abbildungen, Tabellen und Textabschnitte aus der Proxxon-Betriebsanleitung; deren Rechte liegen bei Proxxon.
+Die Einweisung und die Betriebsanweisung sind selbst formuliert und enthalten keine Texte oder Abbildungen aus der
+Proxxon-Betriebsanleitung. Alle Zeichnungen in `zeichnungen/` sind selbst erstellte TikZ-Skizzen, die Sicherheitszeichen
+(ISO 7010, gemeinfrei bzw. CC0) kommen aus fablab-document.
+**Beim Bearbeiten nichts aus der Proxxon-Anleitung übernehmen, auch nicht sinngemäß Satz für Satz.** Bilder bitte
+selbst fotografieren oder nur mit freier, kompatibler Lizenz (z. B. CC BY-SA von Wikimedia Commons, mit Quellenangabe)
+verwenden.

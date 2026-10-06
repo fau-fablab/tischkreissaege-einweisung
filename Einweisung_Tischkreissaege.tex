@@ -1,258 +1,382 @@
+% !TeX spellcheck = de_DE_frami
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% COPYRIGHT: (C) 2017-2026 FAU FabLab and others
+% CC-BY-SA 3.0
+% Text in eigenen Worten, KEINE Passagen oder Abbildungen aus der
+% Proxxon-Betriebsanleitung übernehmen (siehe README, Abschnitt Lizenz).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \newcommand{\basedir}{fablab-document}
 \documentclass{\basedir/fablab-document}
 
-\usepackage{minitoc} % Inhaltsübersicht je Section
-% \usepackage{fancybox} %ovale Boxen für Knöpfe - nicht mehr benötigt
-\usepackage{amssymb} % Symbole für Knöpfe
-% \usepackage{subfigure,caption}
-\usepackage{eurosym}
+\usepackage{amssymb}
+\usepackage{textcomp}
 \usepackage{tabularx} % Tabellen mit bestimmtem Breitenverhältnis der Spalten
-\usepackage{wrapfig} % Textumlauf um Bilder
-\usepackage{todonotes}
-\usepackage{framed}
-\usepackage{xargs}
-\usepackage{framed}
-\renewenvironmentx{leftbar}[3][2=0.5pt, 3=5pt]{\def\FrameCommand{\vrule width #2 \hspace{#3}}\MakeFramed {\advance\hsize-\width \FrameRestore}{\tiny#1\\}} {\endMakeFramed}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{qrcode}
+\usepackage{fablab-document/fablab-ba} % Betriebsanweisung
+\input{zeichnungen/stil}
 
-\renewcommand{\texteuro}{\euro}
+% Nummer eines Bauteils wie in der Übersichtsskizze, z.B. \teil{3}
+\newcommand{\teil}[1]{\tikz[baseline=(n.base)]\node[circle, draw=black, fill=white, line width=0.8pt, minimum size=3.8mm, inner sep=0pt, font=\tiny\bfseries](n){#1};}
+% Sicherheitszeichen (ISO 7010) aus fablab-document
+\newcommand{\zeichen}[2][1.4cm]{\includegraphics[height=#1]{\basedir/ba-symbole/#2}}
+% Sägeblatt als kleines Symbol, z.B. \blattsymbol{36}
+\newcommand{\blattsymbol}[1]{\tikz[x=1mm, y=1mm, baseline=-1mm]{\saegeblatt{0}{0}{5}{#1}}}
+% Diamantblatt: geschlossener Rand mit Diamantbelag
+\newcommand{\diamantsymbol}{\tikz[x=1mm, y=1mm, baseline=-1mm]{%
+	\fill[black!60, draw=black!85, line width=0.4pt] (0,0) circle (5);
+	\foreach \w in {0,15,...,345} \fill[white!80!gray] (\w:4.4) circle (0.35);
+	\fill[black!25] (0,0) circle (2.5); \fill[white] (0,0) circle (0.6);}}
 
-\linespread{1.2}
-
-\date{Dezember 2017}
-\author{David Panusch}
-\title{Einweisung Tischkreissäge Proxxon}
+\date{\today}
+% Versionsnummer: version.tex wird von der GitHub Action erzeugt,
+% lokal steht stattdessen "Entwurf" mit Datum in der Fußzeile.
+\InputIfFileExists{version}{}{\newcommand{\Version}{Entwurf \today}}
+\fancyfoot[R]{Version \Version}
+\author{kontakt@fablab.fau.de}
+\title{Einweisung Tischkreissäge}
 
 \begin{document}
- % Hinweise an Package minitoc, doch bitte irgendwas zu generieren - wird für späteres \secttoc benötigt
-\dosecttoc
-\faketableofcontents
-\mtcsettitle{secttoc}{Arbeitsschritte}
-\mtcsettitlefont{secttoc}{\large \sffamily \bfseries}
-\mtcsetfont{secttoc}{subsection}{\sffamily}
-% \mtcset
-% hier geht das eigentliche Dokument los
-\maketitle
 
-\section{Technische Daten}
-\begin{description}
-	
-    \item[Hersteller:] Proxxon
-    \item[Produktname:] Feinschnitt-Tischkreissäge FET
-    \item[Leistung:] $200\,\mathrm{Watt}$
-    \item[Drehzahlbereich:] $7.000\,\mathrm{min}^{-1}$
-    \item[Tischgröße:] $300 \mathrm{\,\,x\,\,} 300\,\mathrm{mm}$
-    \item[Schnitttiefe:] $1 - 22\,\mathrm{mm}$ 
-    \item[Sägeblätter:] $50 - 85 \mathrm{mm}$ (mit 10 mm-Bohrung)
-    
-\end{description}
+	\maketitle
+	\begin{center}
+		Für die Feinschnitt-Tischkreissäge \textbf{Proxxon FET}\\[1mm]
+		{\small Version \Version}
+	\end{center}
 
+	\textbf{Nur eingewiesene Personen dürfen die Tischkreissäge benutzen.}
+	Wenn du noch nicht eingewiesen bist, frage einen Betreuer. Nach der Einweisung und Unterschrift auf der Einweisungsliste darfst du die Säge selbstständig verwenden.
 
-\section[Allgemeine Sicherheitshinweise]{Allgemeine Sicherheitshinweise}
-\begin{itemize}
+	\begin{center}
+		\zeichen{M003}\quad\zeichen{M004}\quad\zeichen{P028}\quad\zeichen{W024}
+	\end{center}
 
-\item Deformierte oder rissige Sägeblätter dürfen nicht verwendet werden.
-\item Ausschließlich die empfohlenen Sägeblätter verwenden. Der Sägeschnitt darf nicht kleiner sein als die Dicke des Spaltkeils.
-\item Es ist darauf zu achten, dass das Sägeblatt für das zu sägende Material geeignet ist.
-\item Der Sägestaub von bestimmten Materialien ist gesundheitsschädlich.
-\item Beim Hantieren mit Sägeblättern und rauen Materialien Handschuhe tragen.
-\item Bei kleineren Werkstücken ist ein Schiebestock für den Vorschub zu verwenden.
-\item Es ist verboten, das Gerät zu verwenden, wenn Teile fehlerhaft oder defekt sind. Schäden daher sofort dem Betreuer melden!
-\item Vor Werkzeugwechsel ist die Maschine vom Stromnetz zu trennen -- Stecker ziehen!
-\item Sägeblatt fest einspannen - dazu Schlüssel aus der Maschinenkiste verwenden
-\item Das Netzkabel ist von dem Schnittbereich der Kreissäge fernzuhalten
-\item Nach dem Gebrauch ist die Maschine gründlichst zu reinigen und auszusaugen, nicht mit Druckluft abblasen
-\end{itemize}
+	\section{Regeln und Sicherheit}
 
+	\begin{itemize}
+		\item Nie ohne \textbf{Spaltkeil} und \textbf{Sägeblattschutz} sägen. Beide dürfen nicht entfernt, verbogen oder festgeklemmt werden.
+		\item Das Blatt nur so hoch stellen, dass es \textbf{knapp über das Werkstück} hinausragt.
+		\item Hände nie in die Verlängerung des Sägeblatts bringen, weder vor noch hinter dem Blatt. Kleine und schmale Werkstücke mit dem \textbf{Schiebestock} schieben.
+		\item Das Werkstück immer am Längsanschlag oder am Winkelanschlag führen. \textbf{Nie freihändig} sägen und \textbf{nie beide Anschläge gleichzeitig} verwenden.
+		\item Seitlich neben der Schnittlinie stehen, nicht direkt dahinter (Rückschlag).
+		\item Gehörschutz und Schutzbrille tragen. Beim Sägen \textbf{keine Handschuhe}, keine weite Kleidung, lange Haare zusammenbinden.
+		\item Immer die \textbf{Absaugung} anschließen.
+		\item Reste und Späne erst entfernen, wenn das Blatt steht. Nie in das auslaufende Blatt greifen.
+		\item Vor allen Einstellarbeiten und vor dem Sägeblattwechsel den \textbf{Netzstecker ziehen}.
+		\item Das Sägeblatt wechselt nur ein Betreuer.
+		\item Schäden sofort einem Betreuer oder per Mail an \texttt{kontakt@fablab.fau.de} melden und die Säge nicht weiter benutzen.
+	\end{itemize}
 
-\section{Persönliche Schutzausrüstung}
-\begin{table}[h]
-	\centering
-\begin{tabular}{ccc}
+	\BAfalls{betriebsanweisung/ba_tischkreissaege}{Zusätzlich gilt die \textbf{Betriebsanweisung} auf der nächsten Seite (Abschnitt~\ref{sec:betriebsanweisung}). Sie hängt an der Säge aus und ist Bestandteil dieser Einweisung.}
 
-\includegraphics[width=2cm]{bilder/ggehoerschutz.png} & \includegraphics[width=2cm]{bilder/gaugenschutz.png}  & \includegraphics[width=2cm]{bilder/ghandschuh.png} \\
- \end{tabular}
-\end{table}
+	\newpage
 
-\begin{itemize}
-\item Gehörschutz: -- hängt an der Fräse, links neben der Werkbank \\
-\item Schutzbrille, unerlässlich bei Bearbeitung von Alu, Faserwerkstoffen und Gipskarton -- hängen hinter der Werkbank und hinter dem Chemiearbeitsbereich an der Wand \\
-\item Schutzhandschuhe beim Bearbeiten rauer Materialien und beim Werkzeugwechsel -- liegen in der Schutzausrüstungsschublade W8\\
-\end{itemize}
+	% Betriebsanweisung als ganze Seite im Format des Aushangs an der Säge
+	\BAseite[sec:betriebsanweisung]{betriebsanweisung/ba_tischkreissaege}
 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=\textwidth]{bilder/saege-sketch.pdf}
-    \caption{Feintischkreissäge FET von Proxxon}
-    \label{fig:sketch}
-\end{figure}
+	\renewcommand{\contentsname}{Inhaltsverzeichnis / Arbeitsablauf}
+	\setcounter{tocdepth}{2}
+	\tableofcontents
+	\newpage
 
-\section{Bestimmungsgemäße Verwendung}
-Die Feintischkreissäge FET von Proxxon ist für feine Schnitte von dünnen Materialien, bis 22mm Dicke, gedacht. Abhängig von den verwendeten Sägeblättern können mit der Maschine alle Holzarten, viele NE-Metalle, Keramik und Kunststoffe und Epoxid-Leiterplatten bearbeitet werden. Es ist wichtig, die folgenden Anweisungen genau zu beachten, damit die Benutzung der Tischkreissäge nicht zu Gesundheitsschäden, Verletzungen oder Beschädigung der Maschine führt.\\
-Bei der Verwendung der Maschine sollte der Festool-Staubsauger verwendet werden, da sonst sehr viel Staub und Dreck entsteht. Insbesondere bei Arbeiten mit GFK-Platten (Leiterplatten) muss unbedingt die Absaugung angeschlossen sein. Dabei ist zu beachten, dass die Tischkreissäge an der Steckdose des Saugers mit dem am Staubsauger hängenden Festool-Stromkabel angeschlossen wird und der Sauger auf \enquote{AUTO} steht. Bei Holz kann sich der Einlass der Absaugung (4) an der Oberfräse durch Holzsplitter zusetzen. Bei geringem Absaugeffekt ist die Arbeit zu unterbrechen und die Problemstelle zu finden.\\
-Das Werkstück beim Sägen auf die Arbeitsplatte drücken, gefühlvoll und mit wenig Kraft führen; mehr Druck auf die Arbeitsplatte, wenig Druck gegen das Sägeblatt. Führen Sie das Werkstück langsam in das Sägeblatt, besonders wenn das Blatt sehr dünn und die Zähne sehr fein sind, bzw. das Werkstück sehr dick ist. \\
-\textbf{WICHTIG: Die Tischkreissäge darf ausschließlich von eingewiesenen Personen verwendet werden.}
+	\section{Die Säge und ihre Anleitung}
 
+	\begin{center}
+		\begin{tabular}{r|l}
+			Hersteller & Proxxon \\
+			Produktname & Feinschnitt-Tischkreissäge FET \\
+			Leistung & $200\,\mathrm{W}$ \\
+			Leerlaufdrehzahl & $7.000\,\mathrm{min}^{-1}$ \\
+			Tischgröße & $300 \times 300\,\mathrm{mm}$, seitlich ausziehbar \\
+			Schnitthöhe & $1 - 22\,\mathrm{mm}$ (bei geneigtem Blatt weniger) \\
+			Neigung des Sägeblatts & $0$\textdegree{} bis $45$\textdegree, nach rechts \\
+			Sägeblätter & $\varnothing\,50 - 85\,\mathrm{mm}$, Bohrung $10\,\mathrm{mm}$ \\
+		\end{tabular}
+	\end{center}
 
-\section{Inbetriebnahme}
-Maschine vor dem Anschließen und Entfernen des Stromkabels stets ausschalten! Dazu Ein-/Ausschalter (19) drücken.
+	Diese Einweisung fasst die Regeln des FabLabs zusammen. Sie ersetzt nicht die Betriebsanleitung des Herstellers: Die \textbf{Originalbetriebsanleitung} liegt der Maschine bei und ist auf der Produktseite von Proxxon zu finden.
 
-\subsection{Aufstellen der Maschine}
-Die Säge muss, um sicheren Betrieb zu gewährleisten, auf einer standfesten Platte, in unserem Fall der Werkbank, befestigt werden. Dabei wird die Tischkreissäge mit dem Untergrund über Spannzangen, befinden sich in Schublade W4, arretiert. \\ \\
-\textbf{Merke:}
-Sicheres und exaktes Arbeiten ist nur mit einer sorgfältigen und stabilen Befestigung möglich!
+	\begin{center}
+		\qrcode[height=2.2cm]{https://www.proxxon.com/de/micromot/27070.php}\\[1mm]
+		\href{https://www.proxxon.com/de/micromot/27070.php}{Proxxon FET bei Proxxon}
+	\end{center}
 
-\subsection{Sägeblattschutz}
+	\textbf{Bestimmungsgemäße Verwendung:} Die FET ist eine kleine Tischkreissäge für genaue, gerade Schnitte in dünnen Werkstücken bis 22\,mm Dicke, etwa im Modellbau. Je nach Sägeblatt sägt sie Holz und Holzwerkstoffe, Kunststoffe, Aluminium und andere Nichteisenmetalle, Leiterplatten aus Epoxid (GFK) und Keramik. Sie wird dafür fest auf der Werkbank befestigt und immer mit Absaugung betrieben.
 
-Die Tischkreissäge ist mit einem Sägeblattschutz ausgerüstet. Dieser ist so konzipiert, dass er automatisch so weit wie beim Sägen erforderlich nach oben fährt und anschließend wieder
-in seine Ruheposition zurückfällt. Er passt sich außerdem an verschieden eingestellte Schnitttiefen an.
+	\subsection{Die wichtigsten Teile}
+	\label{sec:teile}
 
-\textbf{Achtung:} 
-Der Sägeblattschutz ist ein wichtiges Sicherheitsmittel und darf auf gar keinen Fall manipuliert oder demontiert werden. Der Betrieb der Säge ohne diesen Schutz ist untersagt. \\
-Beim Aufstellen und Transport der Säge immer darauf achten, dass die obere Sägeblattabdeckung sich in ihrer richtigen Position befindet. \\
-Von den freiliegenden spitzen Zähnen des Sägeblattes geht eine erhebliche Verletzungsgefahr aus!
+	\begin{center}
+		\input{zeichnungen/uebersicht}\\[1mm]
+		{\footnotesize Schematische Skizze, nicht maßstäblich. Die Lage einzelner Teile an der Maschine kann abweichen.}
+	\end{center}
 
+	\begin{center}
+		\small
+		\renewcommand{\arraystretch}{1.25}
+		\renewcommand{\tabularxcolumn}[1]{m{#1}}
+		\begin{tabularx}{\textwidth}{|c|m{42mm}|X|}
+			\hline
+			& \textbf{Teil} & \textbf{Wozu} \\ \hline
+			\teil{1} & Sägeblatt & Ragt durch die Tischeinlage nach oben. Höhe und Neigung werden vorn am Gehäuse eingestellt \teil{10}. \\ \hline
+			\teil{2} & Spaltkeil mit Sägeblattschutz & Der Spaltkeil hält den Schnitt hinter dem Blatt offen. Der Schutz darüber hebt sich beim Sägen selbst an und fällt danach zurück. Nie entfernen. \\ \hline
+			\teil{3} & Sägetisch & Auflage für das Werkstück. Sauber und frei von Resten halten. \\ \hline
+			\teil{4} & Längsanschlag & Führt das Werkstück bei Längsschnitten. Lässt sich von rechts oder links einsetzen und mit einer Stellschraube fein verstellen. \\ \hline
+			\teil{5} & Winkelanschlag & Für Quer- und Gehrungsschnitte. Läuft in einer der Führungsnuten. \\ \hline
+			\teil{6} & Führungsnuten & Links und rechts vom Blatt, für den Winkelanschlag. \\ \hline
+			\teil{7} & Ausziehbarer Tisch mit Hilfsanschlag & Vergrößert die Auflage für breite Werkstücke. Die gelbe Kante dient dann als Anschlag. \\ \hline
+			\teil{8} & Skala & Zum Einstellen des Längsanschlags. \\ \hline
+			\teil{9} & Ein-/Ausschalter & Grün ein, rot aus. Im Notfall sofort auf Aus. \\ \hline
+			\teil{10} & Verstellung für Höhe und Neigung & Klemmschraube lösen, einstellen, wieder festziehen (Abschnitt~\ref{sec:einstellungen}). \\ \hline
+			\teil{11} & Winkelskala & Zeigt die Neigung des Sägeblatts. \\ \hline
+			\teil{12} & Absauganschluss & Saugschlauch aufstecken. Nie ohne Absaugung sägen. \\ \hline
+		\end{tabularx}
+	\end{center}
 
-\section{Einstellungen}
-\subsection{Höhenverstellung des Sägeblattes}
+	\section{Vorbereitung}
 
-Zur Anpassung der Schnitttiefe sollte die Position des Sägeblattes in der Höhe reguliert werden. Dies optimiert auf der einen Seite die Sägeleistung, des Weiteren wird durch die Begrenzung des freilaufenden Sägeblattanteils die Verletzungsgefahr reduziert.
+	\subsection{Checkliste vor dem Sägen}
+	Vor \textbf{jedem} Einsatz durchgehen:
+	\begin{itemize}
+		\item Säge mit Zwingen fest auf der Werkbank? Tisch frei von Werkzeug und Resten?
+		\item Netzkabel unbeschädigt und außerhalb des Schnittbereichs?
+		\item Passendes Sägeblatt eingesetzt (Abschnitt~\ref{sec:saegeblatt}), scharf, ohne Risse und ohne fehlende Zähne?
+		\item Spaltkeil und Sägeblattschutz montiert? Fällt der Schutz von selbst zurück?
+		\item Absaugung angeschlossen, Sauger auf \enquote{AUTO}?
+		\item Werkstück frei von Nägeln, Schrauben und anderen Metallteilen? Gerade Kante zum Anlegen vorhanden?
+		\item Schnitthöhe und Neigung eingestellt, alle Klemmschrauben und Anschläge fest?
+		\item Schiebestock griffbereit, Schutzausrüstung angelegt?
+		\item Keine Unbeteiligten neben oder hinter der Säge?
+	\end{itemize}
 
-\begin{figure} 
-	\centering
-	\includegraphics[width=0.6\textwidth]{bilder/saegeverstellung.pdf}
-	\caption{Höhenverstellung des Sägeblattes}
-	\label{fig:verstellung}
-\end{figure}
+	\subsection{Schutzausrüstung}
 
+	\begin{center}
+		\begin{tabular}{cccc}
+			\zeichen{M003} & \zeichen{M004} & \zeichen{P028} & \zeichen{M009} \\
+			\small Gehörschutz & \small Schutzbrille & \small beim Sägen & \small nur beim \\
+			& & \small keine Handschuhe & \small Blattwechsel
+		\end{tabular}
+	\end{center}
 
-\textbf{Anleitung:} \\
-\renewcommand{\labelenumi}{\alph{enumi})}
-\begin{enumerate}
-	\item Die größere Verstellschraube 1 (Abbildung \ref{fig:verstellung}) an der vorderen Bedienfläche lösen und aufdrehen
-	\item An der kleineren Verstellschraube 2 wird die Sägeblattposition eingestellt: Drehen im Uhrzeigersinn verstellt das Blatt nach oben, Drehen gegen den Uhrzeigersinn nach unten.
-	\item Nach Erreichen der gewünschten Position die Verstellschraube 1 festdrehen.
-\end{enumerate}
+	\begin{itemize}
+		\item \textbf{Gehörschutz:} hängt an der Fräse links neben der Werkbank.
+		\item \textbf{Schutzbrille:} immer, besonders bei Aluminium, Faserwerkstoffen und Leiterplatten. Brillen hängen hinter der Werkbank und hinter dem Chemiearbeitsbereich an der Wand.
+		\item \textbf{Staubmaske} bei viel Staub, z.\,B. bei MDF, Hartholz und Leiterplatten.
+		\item Beim Sägen \textbf{keine Handschuhe} tragen: Das Blatt kann sie erfassen und die Hand mitziehen. \textbf{Schutzhandschuhe} (Schublade W8) nur bei gezogenem Netzstecker, z.\,B. beim Sägeblattwechsel oder beim Tragen von rauem Material.
+		\item Eng anliegende Kleidung, keine Schals, Kordeln oder Schmuck; lange Haare zusammenbinden.
+	\end{itemize}
 
+	\subsection{Säge aufstellen und Absaugung anschließen}
+	\begin{enumerate}
+		\item Säge auf die Werkbank stellen und mit Zwingen festklemmen (Schublade W4). Genaues und sicheres Sägen geht nur, wenn die Säge nicht wackeln oder rutschen kann.
+		\item Den Festool-Sauger an den Absauganschluss~\teil{12} anschließen.
+		\item Das Netzkabel der Säge in die Steckdose am Sauger stecken und den Sauger auf \enquote{AUTO} stellen. Er läuft dann automatisch mit der Säge an und kurz nach.
+		\item Vor dem Einstecken prüfen, dass der Schalter~\teil{9} auf Aus steht.
+	\end{enumerate}
+	Bei Holz können Späne den Absauganschluss zusetzen. Lässt die Absaugung nach, die Säge ausschalten, Netzstecker ziehen und die Verstopfung beseitigen.
 
-\subsection{Verstellen der Sägeblattneigung}
+	\subsection{Material}
+	\begin{itemize}
+		\item Zugelassen: Holz und Holzwerkstoffe, Kunststoffe, Aluminium und andere weiche Nichteisenmetalle, Leiterplatten und Keramik, jeweils mit dem passenden Blatt.
+		\item Höchstens 22\,mm dick, bei geneigtem Blatt weniger.
+		\item Nicht zugelassen: Stahl und Eisen, Material mit Nägeln, Schrauben oder Klammern.
+		\item Keine Werkstücke, die sich nicht sicher am Anschlag führen lassen (sehr klein, rund, stark verzogen). Im Zweifel einen Betreuer fragen.
+		\item Der Staub mancher Materialien ist gesundheitsschädlich, vor allem von Hartholz, MDF und GFK (Leiterplatten). Bei Leiterplatten muss die Absaugung unbedingt laufen.
+	\end{itemize}
 
-Für Gehrungsschnitte kann das Sägeblatt geneigt werden. Mit Hilfe der Winkelskala wird die gewünschte Neigung eingestellt, bzw. kann abgelesen werden.
+	\subsection{Sägeblatt wählen}
+	\label{sec:saegeblatt}
+	Das Blatt muss zum Material passen. Viele Zähne schneiden langsamer, aber sauberer; wenige Zähne schneiden schneller und gröber. Für die Säge gibt es im FabLab diese Blätter:
 
-\textbf{Anleitung:} \\
-\renewcommand{\labelenumi}{\alph{enumi})}
-\begin{enumerate}
-	\item Verstellrad 1 (Abbildung \ref{fig:winkelverstellung}) lösen.
-	\item Sägeblatt mit dem Verstellrad nach rechts schwenken.
-	\item Gewünschten Winkel mit dem Zeiger 2 an der Winkelskala 3 einstellen, bzw. ablesen.
-	\item Sägeblattstellung durch Zudrehen der Verstellschraube 1 arretieren.
-\end{enumerate}
+	\begin{center}
+		\small
+		\renewcommand{\arraystretch}{1.4}
+		\renewcommand{\tabularxcolumn}[1]{m{#1}}
+		\begin{tabularx}{\textwidth}{|c|m{38mm}|X|}
+			\hline
+			& \textbf{Sägeblatt} & \textbf{Material} \\ \hline
+			\blattsymbol{80} & Super-Cut, sehr viele feine Zähne & Weiche Hölzer und Kunststoffe, wenn der Schnitt besonders sauber werden soll \\ \hline
+			\blattsymbol{36} & Hartmetall, 36 Zähne & Balsa, Sperrholz, Weich- und Hartholz, Kunststoff, Aluminium \\ \hline
+			\blattsymbol{24} & Hartmetall, 24 Zähne & Hartholz, Spanplatte, Kunststoff, Aluminium \\ \hline
+			\diamantsymbol & Diamantblatt, ohne Zähne & Keramik und Leiterplatten (GFK) \\ \hline
+		\end{tabularx}
+	\end{center}
 
-\begin{figure} [h]
-	\centering
-	\includegraphics[width=0.6\textwidth]{bilder/winkelverstellung.pdf}
-	\caption{Verstellung der Sägeblattneigung}
-	\label{fig:winkelverstellung}
-\end{figure}
+	Passt das eingesetzte Blatt nicht zum Material, einen Betreuer fragen. Den Wechsel macht ein Betreuer (Abschnitt~\ref{sec:blattwechsel}).
 
-\subsubsection{Ausziehen des Sägetisches}
+	\section{Einstellungen}
+	\label{sec:einstellungen}
 
-In einigen Fällen reicht die vorhandene Auflagefläche nicht aus, um größere Werkstücke bearbeiten zu können. Der Sägetisch ist bei diesem Gerät ausziehbar konstruiert, um größere Werkstücke sicher aufliegen zu lassen und diese dann bearbeiten zu können. 
+	Vor allen Einstellarbeiten die Säge ausschalten und den \textbf{Netzstecker ziehen}.
 
+	\subsection{Schnitthöhe}
+	Das Blatt soll nur \textbf{knapp über das Werkstück} hinausragen, etwa eine Zahnhöhe. Dann liegt wenig Blatt frei, und der Schnitt wird sauberer.
 
-\textbf{Anleitung:} \\
-\renewcommand{\labelenumi}{\alph{enumi})}
-\begin{enumerate}
-	\item Die gelbfarbene Anschlagkante, siehe Abbildung 1 (22), entfernen.
-	\item Anschließend den Sägetisch in die gewünschte Position nach außen ziehen. Mit dem vorhandenen Schwenkhebel abstützen.
-	\item Mit der kleinen Verstellschraube kann der ausziehbare Sägetisch in der gewünschten Position festgeklemmt werden.
-	\item Die Anschlagkante wieder in ihre Ursprungsposition drücken, so dass eine plane Oberfläche entsteht. Nun kann mit der Säge gearbeitet werden.
-\end{enumerate}
+	\begin{center}
+		\input{zeichnungen/schnitthoehe}
+	\end{center}
 
-\subsection{Sägeblatt  wählen}
-Bevor mit der Arbeit begonnen werden kann, muss das geeignete Sägeblatt gewählt werden. Zu berücksichtigen dabei sind so unterschiedliche Eigenschaften wie Werkstückmaterial, Beanspruchung und die gewünschte Schnittqualität. Dafür gibt es vier verschiedene Sägeblätter, mit denen die Maschine betrieben werden kann:
+	\begin{enumerate}
+		\item Die große Klemmschraube vorn am Gehäuse~\teil{10} lösen.
+		\item Mit der kleinen Stellschraube die Höhe einstellen: im Uhrzeigersinn fährt das Blatt nach oben, gegen den Uhrzeigersinn nach unten.
+		\item Werkstück neben das Blatt halten und die Höhe prüfen.
+		\item Klemmschraube wieder festziehen.
+	\end{enumerate}
 
-\begin{table}[h]
-	\centering
-	\begin{tabular}{lll}
-		&\textbf{Sägeblatt}  & \textbf{Materialien} \\
-		\includegraphics[width=1cm]{bilder/super_cut.png}&Super-Cut & Für weichere Hölzer und Kunststoffe \\
-		\includegraphics[width=1cm]{bilder/36zahne.png}&36 Zähne, Hartmetall &  Balsaholz, Sperrholz, Weichholz, Hartholz, Kunststoff und Aluminium\\
-		\includegraphics[width=1cm]{bilder/24zahne.png}&24 Zähne, Hartmetall & Aluminium, Hartholz, Spanplatten, Kunststoff \\
-		\includegraphics[width=1cm]{bilder/diamant.png}&Diamantblatt & Speziell zum Schneiden von keramischen Teilen und Leiterplatten
-	\end{tabular}
-\end{table}
+	\subsection{Neigung für Gehrungsschnitte}
+	Das Blatt lässt sich für Gehrungsschnitte von 0\textdegree{} bis 45\textdegree{} nach rechts neigen.
+	\begin{enumerate}
+		\item Klemmung der Neigung~\teil{10} lösen.
+		\item Blatt nach rechts schwenken, bis der Zeiger an der Winkelskala~\teil{11} den gewünschten Winkel zeigt.
+		\item Klemmung wieder festziehen.
+		\item Den Längsanschlag auf die \textbf{linke} Seite setzen, damit sich das Blatt vom Anschlag weg neigt.
+	\end{enumerate}
 
-\subsection{Wechsel des Sägeblattes}
+	\begin{center}
+		\input{zeichnungen/neigung}
+	\end{center}
 
-Nachdem die Wahl des Sägeblattes für das zu schneidende Werkstück getroffen ist, ist es notwendig, dieses ggf. in der Säge zu tauschen. Hierzu bitte einen Betreuer um Hilfe bitten, da hierbei ein großes Verletzungspotential besteht. 
+	Die Skala ist nur ungefähr genau. Für genaue Winkel einen Probeschnitt in einem Reststück machen und mit dem Winkelmesser nachmessen.
 
+	\subsection{Längsanschlag}
+	Am Längsanschlag~\teil{4} wird das Werkstück entlanggeschoben. Der Abstand zwischen Blatt und Anschlag ist die Breite des abgesägten Streifens.
+	\begin{enumerate}
+		\item Anschlag von rechts oder links in die Führung am Tisch schieben. Zum Einsetzen, Verschieben und Herausnehmen beide Klemmungen lösen.
+		\item Anschlag ungefähr auf das Maß schieben, an der Skala~\teil{8} ablesen. Für genaue Maße mit der Stellschraube nachstellen.
+		\item Beide Klemmungen festziehen. Der Anschlag darf sich beim Sägen nicht bewegen.
+		\item Das Maß am besten direkt zwischen Anschlag und einem Zahn des Blatts nachmessen.
+	\end{enumerate}
 
-\textbf{Anleitung:} \\
-\renewcommand{\labelenumi}{\alph{enumi})}
-\begin{enumerate}
-	\item \textbf{Netzstecker ziehen!}
-	\item Sägeblatt wie in Kapitel „Höhenverstellung des Sägeblattes“ beschrieben nach unten drehen.
-	\item Das Gehäuse nun aufklappen.
-	\item Zum Lösen der Schraube muss die Welle, auf der das Sägeblatt montiert ist, blockiert werden. Dazu wird ein kleiner Innensechskantschlüssel in eine Bohrung auf dem Sägetisch eingeführt und von dort durch eine Querbohrung in der Sägeblattwelle gesteckt. Gegebenenfalls muss diese Bohrung durch Drehen des Sägeblattes von Hand etwas „gesucht“ werden.
-	\item Mit einem größeren Innensechskantschlüssel die Zylinderkopfschraube lösen, herausdrehen und zusammen mit dem Sägeblatt entnehmen.
-	\textbf{Achtung:}
-	Die Zähne der Sägeblätter sind auch bei verschlissenen Sägeblättern noch sehr scharf.
-	\item Altes Sägeblatt nach oben entnehmen und durch die Sägeblattöffnung und das neue Sägeblatt auf die Welle aufsetzen. Auf richtigen Sitz der Sägeblattbohrung am Wellenbund achten!
-	\item Sägeblatt mit der Zylinderkopfschraube wieder eindrehen und anziehen. Beachten, dass die Sägewelle weiterhin mit dem kleinen Innensechskantschlüssel blockiert bleiben muss.
-	\item Arretierung lösen, Geräteoberteil wieder nach unten klappen und mit der Verstellschraube verriegeln.
-\end{enumerate}
+	\subsection{Ausziehbarer Tisch und Hilfsanschlag}
+	Für breitere Werkstücke lässt sich der Tisch zur Seite ausziehen~\teil{7}.
+	\begin{enumerate}
+		\item Die gelbe Kante abnehmen.
+		\item Den Tisch so weit wie nötig herausziehen und mit der Stütze abstützen.
+		\item Mit der kleinen Klemmschraube feststellen.
+		\item Für eine ebene Auflage die gelbe Kante bündig einsetzen. Soll sie als \textbf{Hilfsanschlag} dienen, bleibt sie hochgestellt: Ihr Abstand zum Blatt ist dann die Schnittbreite. Vor dem Sägen fest klemmen.
+	\end{enumerate}
 
-\section{Arbeiten mit einer Tischkreissäge}
+	\subsection{Winkelanschlag}
+	Für Querschnitte und schräge Schnitte wird das Werkstück am Winkelanschlag~\teil{5} geführt.
+	\begin{enumerate}
+		\item Winkelanschlag in die linke oder rechte Führungsnut~\teil{6} einsetzen.
+		\item Klemmknopf lösen, Winkel an der Skala einstellen, Klemmknopf festziehen.
+		\item Den Längsanschlag abnehmen oder weit vom Blatt wegschieben.
+	\end{enumerate}
 
-\subsection{Längsanschläge}
-Längsanschläge sind ein unentbehrliches Hilfsmittel, um Werkstücke exakt sägen zu können. Das Werkstück wird einfach beim Sägevorgang am Längsanschlag mit leichtem Druck entlanggeführt, somit entspricht das Maß des fertig gesägten Werkstückes dem des Abstands von Sägeblatt zur Anschlagkante des Längsanschlages. \\
-Zur Einstellung des Längsanschlags lässt sich, falls gewünscht, die Skala an der Gehäusevorderseite heranziehen.
+	\section{Sägen}
 
-\subsubsection{Einsetzen und Entnehmen}
-Der Längsanschlag wird seitlich (von rechts oder links) in die Führungen auf dem Sägetisch eingesetzt. Bitte stellen Sie beim Verschieben, Einsetzen bzw. Entnehmen des Längsanschlags sicher, dass beide Feststellmöglichkeiten gelöst sind! Beim Betrieb der Säge sind die Anschläge fest zu arretieren. 
+	\begin{center}
+		\input{zeichnungen/fuehrung}
+	\end{center}
 
-\subsubsection{Einstellen des Längsanschlags}
+	\subsection{Längsschnitt mit Längsanschlag}
+	\begin{enumerate}
+		\item Checkliste durchgehen, Schutzausrüstung anlegen.
+		\item Längsanschlag auf das Maß stellen und klemmen, Blatthöhe einstellen.
+		\item Werkstück mit der geraden Kante an den Anschlag legen, noch ohne das Blatt zu berühren.
+		\item Seitlich neben der Schnittlinie stehen, Säge einschalten~\teil{9}. Warten, bis das Blatt die volle Drehzahl hat.
+		\item Werkstück langsam und gleichmäßig nach vorn schieben: kräftig auf den Tisch und leicht an den Anschlag drücken, nur wenig gegen das Blatt. Je dicker das Werkstück und je feiner die Zähne, desto langsamer.
+		\item Sobald die Hand näher als eine Handbreite an das Blatt käme, mit dem \textbf{Schiebestock} weiterschieben. Schmale Streifen immer mit dem Schiebestock.
+		\item Werkstück ganz durchschieben, bis es hinter dem Spaltkeil frei ist. Nicht zurückziehen, solange das Blatt läuft.
+		\item Säge ausschalten und warten, bis das Blatt steht. Erst dann Reste entfernen.
+	\end{enumerate}
 
-Eine grobe Einstellung durch Verschieben des Längsanschlags ohne Zuhilfenahme der oberen Skala ist für die meisten Fälle ausreichend.\\
-\textbf{Achtung:} Stellen Sie sicher, dass bei allen Einstellarbeiten der Netzstecker gezogen ist! \\
+	\subsection{Querschnitt mit Winkelanschlag}
+	\begin{enumerate}
+		\item Längsanschlag abnehmen oder weit wegschieben, damit das abgesägte Stück nicht eingeklemmt wird.
+		\item Winkel am Winkelanschlag einstellen und klemmen.
+		\item Werkstück an den Winkelanschlag legen und mit der Hand festhalten, die Hand weit weg von der Schnittlinie.
+		\item Säge einschalten, Winkelanschlag mit dem Werkstück gleichmäßig am Blatt vorbeischieben.
+		\item Säge ausschalten, Anschlag erst zurückziehen, wenn das Blatt steht.
+	\end{enumerate}
 
-\textbf{Anleitung:} \\
-\renewcommand{\labelenumi}{\alph{enumi})}
-\begin{enumerate}
-	\item Bitte zum Verschieben des Anschlags die Fixierschrauben des Längsanschlages lösen.
-	\item Den Längsanschlag unter Zuhilfenahme der Skala auf der Oberseite in seiner Führung verschieben. 
-	\item Durch Festziehen der Fixierschrauben den Längsanschlag arretieren.
-	
-\end{enumerate}
+	\subsection{Rückschlag}
+	Ein Rückschlag entsteht, wenn das Werkstück am Blatt klemmt oder sich verdreht. Die hinteren Zähne steigen nach oben, heben das Werkstück an und schleudern es mit großer Kraft in Richtung der Bedienperson. Auch bei einer kleinen Säge wie der FET kann das Teil gefährlich schnell werden, und die Hand wird dabei leicht in das Blatt gezogen.
 
-\subsection{Hilfsanschlag}
-Damit größere Werkstücke problemlos zugeschnitten werden können, kann mit dem Hilfsanschlag gearbeitet werden. Dazu muss zunächst der Sägetisch ausgezogen werden, wie im Kapitel „Ausziehen des Sägetisches“ beschrieben. Anschließend wird die Anschlagkante nicht „versenkt“, sondern verbleibt außen. \\
-Die Entfernung zum Sägeblatt bestimmt die Sägebreite, diese kann variiert werden. Zum Sägen immer mit der Fixierschraube den Anschlag festziehen.
-\subsection{Winkelanschlag}
+	\begin{center}
+		\input{zeichnungen/rueckschlag}
+	\end{center}
 
-Wird ein winkelig zugeschnittenes Werkstück oder ein Gehrungsschnitt benötigt, kann dies mit Hilfe eines Winkelanschlags erfolgen. Dieser läuft in den dafür vorgesehenen Führungen entweder rechts oder links vom Sägeblatt entlang, wie benötigt.
+	So wird er vermieden:
+	\begin{itemize}
+		\item Spaltkeil immer montiert lassen. Die Schnittfuge des Blatts muss mindestens so breit sein wie der Spaltkeil dick ist, sonst bleibt das Werkstück am Keil hängen.
+		\item Werkstück immer an einem Anschlag führen, nie freihändig und nie gleichzeitig an Längs- und Winkelanschlag.
+		\item Bei geneigtem Blatt den Längsanschlag links vom Blatt setzen.
+		\item Seitlich neben der Schnittlinie stehen, nicht dahinter.
+		\item Werkstück ohne Pause durchschieben und nicht während des Schnitts zurückziehen. Wenn es klemmt: ausschalten, Blatt stehen lassen, dann das Werkstück lösen.
+		\item Nur scharfe Blätter verwenden. Ein stumpfes Blatt braucht mehr Druck und klemmt leichter.
+	\end{itemize}
 
-\begin{figure} [h]
-	\centering
-	\includegraphics[width=0.6\textwidth]{bilder/Winkelanschlag.pdf}
-	\caption{Verwendung des Winkelanschlages}
-	\label{fig:winkelanschlag}
-\end{figure}
+	\subsection{Kleine Teile und Leiterplatten}
+	\begin{itemize}
+		\item Kleine Teile nie mit den Fingern am Blatt vorbeischieben, sondern mit dem Schiebestock oder einem Hilfsbrett am Winkelanschlag.
+		\item Kurze Abschnitte von einem langen Stück absägen, nicht ein kurzes Stück noch einmal teilen.
+		\item Leiterplatten nur mit dem Diamantblatt und laufender Absaugung sägen, Staubmaske tragen. Der Glasfaserstaub reizt Haut, Augen und Atemwege.
+	\end{itemize}
 
-\textbf{Anleitung:} \\
-\renewcommand{\labelenumi}{\alph{enumi})}
-\begin{enumerate}
-	\item Winkelanschlag in die Führung 1 rechts oder links vom Sägeblatt einsetzen, wie in Abbildung \ref{fig:winkelanschlag} zu sehen.
-	\item Verstellschraube 2 lösen, den gewünschten Winkel an der Skala 3 einstellen und die Verstellschraube wieder festziehen.
+	\subsection{Nicht erlaubt}
+	Folgendes ist im FabLab \textbf{verboten}:
+	\begin{itemize}
+		\item Sägen ohne Spaltkeil oder mit entferntem, manipuliertem oder festgeklemmtem Sägeblattschutz.
+		\item Freihändiges Sägen ohne Anschlag.
+		\item Gleichzeitiges Verwenden von Längs- und Winkelanschlag.
+		\item Nuten, Falze und andere verdeckte Schnitte ohne Rücksprache mit einem Betreuer.
+		\item Sägen mit Handschuhen.
+		\item Sägen ohne Absaugung.
+		\item Sägen von Stahl, Eisen oder Material mit Nägeln und Schrauben.
+		\item Verwenden nicht passender, stumpfer, verbogener oder rissiger Sägeblätter.
+		\item Benutzen der Säge durch nicht eingewiesene Personen.
+	\end{itemize}
 
-\end{enumerate}
+	\section{Nach dem Sägen}
 
+	\begin{itemize}
+		\item Säge ausschalten, Blatt abwarten, Netzstecker ziehen.
+		\item Säge, Tisch und Arbeitsplatz gründlich aussaugen. \textbf{Nicht mit Druckluft abblasen}, das verteilt den Staub im Raum und drückt ihn in die Mechanik.
+		\item Anschläge, Schiebestock, Zwingen und Sauger an ihren Platz zurücklegen.
+		\item Schäden, stumpfe Sägeblätter oder Probleme einem Betreuer melden.
+	\end{itemize}
 
-%\newpage
-\section{Quellen und Rechte}
-\label{quellen}
-Alle Rechte an Grafiken, Tabellen und Textabschnitten, welche aus der Proxxon-Originalbetriebsanleitung übernommen wurden, liegen bei Proxxon. Die Originalbetriebsanleitung liegt der Maschine bei und ist online auf \url{www.proxxon.de} zu finden.
+	\section{Infos für Betreuer}
 
-\ccLicense{tischkreissaege-einweisung}{Einweisung Tischkreissäge}
+	\subsection{Sägeblattwechsel}
+	\label{sec:blattwechsel}
+	Nur durch Betreuer und nur mit gezogenem Netzstecker. Schutzhandschuhe tragen, die Zähne sind auch an alten Blättern sehr scharf. Vor dem Einschalten die Handschuhe wieder ausziehen. Die Innensechskantschlüssel liegen in der Maschinenkiste.
+	\begin{enumerate}
+		\item \textbf{Netzstecker ziehen.}
+		\item Blatt ganz nach unten fahren (Abschnitt~\ref{sec:einstellungen}).
+		\item Das Oberteil der Säge aufklappen.
+		\item Welle blockieren: den kleinen Innensechskantschlüssel durch die Bohrung im Tisch in die Querbohrung der Sägewelle stecken. Dazu das Blatt von Hand drehen, bis die Bohrungen übereinander liegen.
+		\item Mit dem großen Innensechskantschlüssel die Schraube in der Mitte des Blatts lösen und herausdrehen, das alte Blatt abnehmen.
+		\item Neues Blatt aufsetzen. Die Bohrung muss sauber auf dem Bund der Welle sitzen, der Drehrichtungspfeil auf dem Blatt muss zur Drehrichtung der Säge passen.
+		\item Schraube eindrehen und festziehen, solange die Welle noch blockiert ist.
+		\item \textbf{Schlüssel aus der Welle ziehen}, Oberteil zuklappen und verriegeln.
+		\item Prüfen: Blatt dreht sich von Hand frei, Spaltkeil steht in einer Linie mit dem Blatt, Sägeblattschutz fällt von selbst zurück.
+	\end{enumerate}
+	Keine deformierten, rissigen oder stumpfen Blätter einsetzen. Nur Blätter mit 50 bis 85\,mm Durchmesser und 10\,mm Bohrung, die laut Betriebsanleitung für die FET zugelassen sind.
+
+	\subsection{Typische Fehler}
+	\begin{itemize}
+		\item \textbf{Brandspuren am Holz oder geschmolzener Kunststoff:} Vorschub zu langsam oder Blatt stumpf bzw.\ ungeeignet.
+		\item \textbf{Ausgefranste Kanten:} Blatt mit mehr Zähnen nehmen, Blatthöhe prüfen.
+		\item \textbf{Schnitt läuft schräg oder Blatt klemmt:} Anschlag prüfen und neu klemmen, Spaltkeil auf Ausrichtung prüfen.
+		\item \textbf{Schwache Absaugung:} Absauganschluss und Schlauch auf Späne prüfen.
+	\end{itemize}
+
+	\subsection{Pflege und Prüfung}
+	\begin{itemize}
+		\item Säge, Tischeinlage und Absaugung regelmäßig von Staub und Spänen reinigen.
+		\item Spaltkeil, Sägeblattschutz und Sägeblätter regelmäßig prüfen, stumpfe Blätter aussortieren.
+		\item Netzkabel prüfen. Elektrische Prüfung nach DGUV Vorschrift 3 gemäß Prüffrist.
+	\end{itemize}
+
+	\section{Quellen}
+	Die Formulierungen dieser Einweisung und alle Zeichnungen sind eigenständig erstellt (TikZ, Quelltext in \texttt{zeichnungen/}). Die Sicherheitszeichen nach ISO 7010 stammen aus \href{https://github.com/fau-fablab/fablab-document}{fablab-document} (gemeinfrei bzw.\ CC0, Wikimedia Commons). Technische Daten und sachliche Angaben beruhen auf öffentlich zugänglichen Herstellerangaben und allgemein bekannten Regeln für Tischkreissägen. Maßgeblich ist die Originalbetriebsanleitung von Proxxon, die der Maschine beiliegt (Link siehe oben). \enquote{Proxxon} ist eine Marke ihres Inhabers und wird hier nur zur Bezeichnung des Produkts verwendet. Dieses Dokument ist inoffiziell und wurde von Proxxon weder geprüft, noch übernimmt Proxxon dafür eine Haftung.
+
+	\ccLicense{tischkreissaege-einweisung}{Einweisung Tischkreissäge}
 
 \end{document}

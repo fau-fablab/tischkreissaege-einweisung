@@ -1,0 +1,42 @@
+% =====================================================================
+%  Schnitthöhe: Das Blatt ragt nur knapp über das Werkstück hinaus.
+%  Seitenansicht, Bedienperson rechts, Vorschub nach links.
+%  Selbst gezeichnet (TikZ), Lizenz: CC BY-SA 3.0
+% =====================================================================
+\begin{tikzpicture}[x=1mm, y=1mm, font=\scriptsize]
+
+  % Seitenansicht mit Werkstück der Dicke 8: \saegeseite{Blattüberstand}
+  % (Tischoberkante bei y=14, Blattmitte bei x=40)
+  \newcommand{\saegeseite}[1]{%
+    \pgfmathsetmacro{\mitte}{14+8+#1-17}%
+    \begin{scope}
+      \clip (0,14) rectangle (82,46);
+      \saegeblatt{40}{\mitte}{17}{24}
+    \end{scope}
+    % Spaltkeil: folgt dem Blatt im Abstand von etwa 2 mm
+    \pgfmathsetmacro{\wa}{180-asin((14-\mitte)/19)}%
+    \draw[keil] ($(40,\mitte)+(\wa:19)$) arc[start angle=\wa, end angle=112, radius=19]
+      -- ($(40,\mitte)+(112:21.5)$) arc[start angle=112, end angle=\wa, radius=21.5] -- cycle;
+    \fill[gehaeusegruen!70] (4,4) rectangle (78,12);
+    \draw[tisch] (4,12) rectangle (78,14);
+    \draw[werkstueck, fill opacity=0.6] (8,14) rectangle (76,22);
+    \draw[vorschub] (70,26) -- (56,26);}
+
+  % ---------------- 1 richtig --------------------------------------
+  \feld{0}{0}{82}{52}{1\quad Blatt knapp über dem Werkstück}
+  \saegeseite{3}
+  \draw[mass] (60,22) -- (60,25) node[right=-0.5mm, midway] {};
+  \draw[hilfslinie] (44,25) -- (62,25);
+  \node[anchor=west, align=left] at (62,33) {knapp eine\\Zahnhöhe};
+  \draw[hilfslinie] (61.5,30.5) -- (60,24);
+  \pic at (74,45) {ok};
+  \node at (41,7.5) {\color{white}wenig Blatt frei, sauberer Schnitt};
+
+  % ---------------- 2 falsch ---------------------------------------
+  \begin{scope}[shift={(88,0)}]
+    \feld{0}{0}{82}{52}{2\quad Blatt zu hoch}
+    \saegeseite{15}
+    \pic at (74,45) {nok};
+    \node at (41,7.5) {\color{white}viel freies Blatt, höhere Verletzungsgefahr};
+  \end{scope}
+\end{tikzpicture}
